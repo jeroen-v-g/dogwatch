@@ -62,7 +62,8 @@ RUN cd ~/dogwatch && \
     rm -rf ~/.m2
 
 RUN mkdir /usr/share/java/etc && \
-    cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml
+    cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml && \ 
+    rm -rf /usr/share/jett9/webapps/root
 
 ENTRYPOINT cd /usr/share/jetty9 && \
     java -jar start.jar
