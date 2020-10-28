@@ -1,0 +1,58 @@
+<html t:type="layout" title="DogWatch"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<t:if test="isSearching">
+		<script type="text/javascript" onload="startRefreshCall('${contextPath}')"></script>	
+		<p:else>
+			<script type="text/javascript" onload="doAjaxCall('${contextPath}')"></script>	
+		</p:else>			
+	</t:if>
+<!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+<body>
+
+	<!-- Main hero unit for a primary marketing message or call to action -->
+	<div class="hero-unit">
+		<p>
+			<img src="${asset:context:images/dogWatch.png}"
+				alt="${message:greeting}" title="${message:greeting}" />
+		</p>
+		<h3>${message:greeting}</h3>
+		<p>Upload de zoek foto's en stel de netwerk schijven in.</p>
+		<p>
+			Het is nu: <strong>${currentTime}</strong>
+		</p>
+		<p>
+		<t:pagelink page="uploadImages" class="btn btn-primary btn-large">Upload zoek foto's</t:pagelink>
+		</p>
+		<p>
+		<t:pagelink page="networkDisk" class="btn btn-primary btn-large">Stel netwerk schijven in</t:pagelink>
+		</p>
+	</div>
+
+	<!-- Example row of columns -->
+	<div class="row">
+		<div class="span4">
+			<p>
+				<!-- ${isSearching}  -->
+				<t:if test="isSearching">
+					<p>
+						<h3>Er wordt gezocht.</h3>
+					</p>
+					<t:eventlink event="stopsearch"
+						class="btn btn-default form-compoment" id="stopSearchButton">Stop zoeken</t:eventlink>
+					<p:else>
+						<t:eventlink event="search" class="btn btn-default form-compoment" id="startSearchButton">Start zoeken &raquo;</t:eventlink>
+					</p:else>
+				</t:if>
+				<a id="startRefreshButton" class="btn btn-default form-compoment"
+					onclick="startRefreshCall('${contextPath}')">Haal zoek resultaten op &raquo;</a>
+				<a id="stopRefreshButton" class="btn btn-default form-compoment"
+					onclick="stopRefreshCall()" style="display: none">Stop vernieuwen.</a>
+			</p>
+		</div>
+	<div id="results"></div>
+	</div>
+</body>
+</html>

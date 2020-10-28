@@ -1,0 +1,78 @@
+<html t:type="layout" title="Selecteer directories"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
+	xmlns:p="tapestry:parameter">
+
+
+<div class="row">
+	<div class="span12">
+		<p>Selecteer de directory die doorzocht moet worden</p>
+	</div>
+</div>
+
+<div class="row">
+	<div width="50%" class="span12">
+		<t:form t:id="shareForm">
+			<p>
+				<t:select t:id="shareList" value="selectedShare"
+					model="shareSelectModel" />
+				<t:submit value="Selecteer share" class="btn btn-primary"></t:submit>
+				<t:eventlink t:event="addShare" class="btn btn-primary btn-large"
+					zone="addShareZone">Voeg Share toe</t:eventlink>
+				<t:submit t:event="removeShare" class="btn btn-primary btn-large" value="Verwijder Share"></t:submit>
+			</p>
+			<p>Geselecteerde share = ${selectedShare}</p>
+		</t:form>
+
+		<t:zone t:id="addShareZone" id="addShareZone" />
+
+		<t:zone t:id="selectedPathZone" id="selectedPathZone">
+			<t:if test="selectedShare">
+                        Geselecteerd:<br />
+				<t:loop source="paths" value="pathName">
+                        ${pathName}<br />
+				</t:loop>
+			</t:if>
+		</t:zone>
+		<t:form t:id="pathForm">
+			<p></p>
+			<p>
+				<t:zone t:id="treeModelZone">
+					<t:if test="selectedShare">
+						<t:tree model='pathSelectModel' node='treeNode'>
+							<p:label>
+								<t:eventLink event="leafSelected" context="treeNode.value"
+									async="true" href="#">
+									<!-- class="prop:leafClass"  --> 
+                                        ${treeNode.value.fileName}
+                                        </t:eventLink>
+							</p:label>
+						</t:tree>
+					</t:if>
+				</t:zone>
+			</p>
+		</t:form>
+		<t:block t:id="addShareBlock">
+			<t:form t:id="addShareForm">
+				<p />
+				<p>
+					Share Naam (b.v. //host/sharename ) :
+					<t:textfield t:id="shareName" validate="required" />
+				</p>
+				<p>
+					Share Gebruikersnaam :
+					<t:textfield t:id="shareUsername" validate="required" />
+				</p>
+				<p>
+					Share Wachtwoord :
+					<t:passwordfield t:id="sharePassword" validate="required" />
+				</p>
+				<t:submit value="Add" event="confirmShare"></t:submit>
+				<t:submit value="Cancel"></t:submit>
+				<p />
+			</t:form>
+		</t:block>
+
+	</div>
+</div>
+
+</html>

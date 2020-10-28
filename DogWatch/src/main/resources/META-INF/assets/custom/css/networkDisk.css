@@ -1,0 +1,23 @@
+SPAN.tree-icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background-image: url(../icon/tree-sprites.png);
+    background-position: 0px -16px;
+}
+
+LI.leaf-node > SPAN.tree-icon {
+    cursor: default;
+    background-position: -16px -16px;
+}
+
+.btn {
+	margin-right:10px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#addShareZone {
+	width:300px;
+}

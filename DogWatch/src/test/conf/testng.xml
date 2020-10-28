@@ -1,0 +1,7 @@
+<suite name="DogWatch Application Test Suite" annotations="1.5">
+    <test name="Unit Tests">
+        <packages>
+            <package name="com.example.dogwatch"/>
+        </packages>
+    </test>
+</suite>
