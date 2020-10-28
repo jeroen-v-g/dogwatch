@@ -1,4 +1,4 @@
-# This is a sample Dockerfile you can modify to deploy your own app based on face_recognition
+# This is a Dockerfile for the dogwatch image.
 
 FROM ubuntu:latest
 
@@ -51,7 +51,6 @@ RUN cd ~ && \
 
 RUN cp ~/dogwatch/src/py/face_recognition/face_recognition_cli.py ~/face_recognition/face_recognition/face_recognition_cli.py
     
-# COPY . /root/face_recognition
 RUN cd ~/face_recognition && \
     pip3 install -r requirements.txt && \
     python3 setup.py install
@@ -62,9 +61,8 @@ RUN cd ~/dogwatch && \
     mvn clean && \ 
     rm -rf ~/.m2
 
-CMD mkdir /usr/share/java/etc && \
+RUN mkdir /usr/share/java/etc && \
     cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml
-# CMD cd /root/face_recognition/examples && \
-#    python3 recognize_faces_in_pictures.py
+
 ENTRYPOINT cd /usr/share/jetty9 && \
     java -jar start.jar
