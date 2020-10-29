@@ -57,13 +57,13 @@ RUN cd ~/face_recognition && \
 
 RUN cd ~/dogwatch && \
     mvn package && \
-    cp ~/dogwatch/target/DogWatch.war /usr/share/jetty9/webapps/ROOT.war && \
+    cp ~/dogwatch/target/DogWatch.war /var/lib/jetty9/webapps/ROOT.war && \
     mvn clean && \ 
     rm -rf ~/.m2
 
 RUN mkdir /usr/share/java/etc && \
     cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml && \ 
-    rm -rf /usr/share/jett9/webapps/root
+    rm -rf /var/lib/jett9/webapps/root
 
 ENTRYPOINT cd /usr/share/jetty9 && \
     java -jar start.jar
