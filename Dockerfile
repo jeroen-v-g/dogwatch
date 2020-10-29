@@ -33,6 +33,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     smbclient \
     software-properties-common \
     && apt-get clean && rm -rf /tmp/* /var/tmp/*
+
 RUN cd ~ && \
     mkdir -p dlib && \
     git clone -b 'v19.9' --single-branch https://github.com/davisking/dlib.git dlib/ && \
@@ -40,6 +41,11 @@ RUN cd ~ && \
     python3 setup.py install --yes USE_AVX_INSTRUCTIONS && \
     cd ~ && \
     rm -rf ~/dlib
+
+RUN mkdir /usr/share/java/etc && \
+    cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml && \ 
+    rm -rf /var/lib/jett9/webapps/root && \
+    rm -rf /usr/share/jetty9/webapps/root
 
 RUN cd ~ && \
     mkdir face_recognition && \
@@ -60,10 +66,6 @@ RUN cd ~/dogwatch && \
     cp ~/dogwatch/target/DogWatch.war /var/lib/jetty9/webapps/ROOT.war && \
     mvn clean && \ 
     rm -rf ~/.m2
-
-RUN mkdir /usr/share/java/etc && \
-    cp /usr/share/jetty9/etc/webdefault.xml /usr/share/java/etc/webdefault.xml && \ 
-    rm -rf /var/lib/jett9/webapps/root
 
 ENTRYPOINT cd /usr/share/jetty9 && \
     java -jar start.jar
