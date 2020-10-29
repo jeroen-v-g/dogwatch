@@ -31,6 +31,7 @@ RUN DEBIAN_FRONTEND="noninteractive" \
     python3-pip \
     python3-setuptools \
     smbclient \
+    sudo \
     software-properties-common \
     && apt-get clean && rm -rf /tmp/* /var/tmp/*
 
