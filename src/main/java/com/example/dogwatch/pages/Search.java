@@ -38,8 +38,7 @@ import com.example.dogwatch.services.Authenticator;
 /**
  * Start page of application DogWatch
  */
-
-@Import(module="search")
+@Import(module={"search"})
 @AnonymousAccess
 public class Search {
 	@Inject
@@ -76,6 +75,9 @@ public class Search {
 
 	@Inject
 	private Request request;
+	
+	@Inject
+	private Response response;
 
 	@Environmental
 	private JavaScriptSupport javaScriptSupport;
@@ -87,15 +89,19 @@ public class Search {
 			isSearching = false;
 			stopSearch = false;
 		}
-		return eventContext.getCount() > 0 ? new HttpError(404, "Resource not found") : null;
+		return eventContext.getCount() > 0 ? new HttpError(404, "Page not found") : null;
 	}
 	
 	void afterRender()
 	{
 		if (isSearching)
+		{
 			javaScriptSupport.require("search").invoke("startRefreshCall").with(getContextPath());
+		}
 		else 
+		{
 			javaScriptSupport.require("search").invoke("doAjaxCall").with(getContextPath());
+		}
 	}
 	
 	public String getContextPath()
@@ -131,6 +137,7 @@ public class Search {
 		if (request.getParameter("action") != null && request.getParameter("action").equals("isSearching")) {
 			JSONObject json = new JSONObject();
 			json.put("isSearching", isSearching);
+			json.put("percentageCompleted", (int)searchBot.getPercentageCompleted());
 			return new TextStreamResponse("application/json", json.toCompactString());
 		}
 
@@ -149,7 +156,6 @@ public class Search {
 				
 				stringBuffer.append("<p><img src="+getContextPath()+"/search:image?file=" + imageUrl + " ></img></p>\n");
 			}
-
 			return new TextStreamResponse("text/html;charset=utf-8", stringBuffer.toString());
 		}
 		// If no action matches return empty string
@@ -180,6 +186,7 @@ public class Search {
 
 			}
 		};
+		response.addHeader("Cache-Control", "public, max-age=3600");
 		return streamResponse;
 	}
 

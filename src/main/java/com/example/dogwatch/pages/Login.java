@@ -9,6 +9,7 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.corelib.components.TextField;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.slf4j.Logger;
@@ -51,6 +52,8 @@ public class Login {
 	@Persist
 	private String target;
 	
+	@Inject
+	private Messages messages;
 	
     /**
      * Respond to page activation by capturing the "target" path info as the
@@ -64,18 +67,21 @@ public class Login {
             target = context.get(String.class, 0);
         }
     }
-    
 	
 	Object onSubmitFromLoginForm() {
 		try {
 			authenticator.login(username, password);
 		} catch (AuthenticationException e) {
-			alertManager.error("Fout gebruikersnaam en/of wachtwoord");
+			alertManager.error(messages.get("error"));
 			return Login.class;
 		}
-		alertManager.success("Welkom!");
+		alertManager.success(messages.get("welcome"));
 		if (target!=null)
-			return target.toLowerCase();
+		{
+			String returnTarget= target.toLowerCase();
+			target=null;
+			return returnTarget;
+		}
 		else
 			return Search.class;
 

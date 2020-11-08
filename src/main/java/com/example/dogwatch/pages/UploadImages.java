@@ -36,11 +36,6 @@ public class UploadImages
     @Inject 
     private PersistentLocale persistentLocale;
     
-    public void onActivate()
-    {
-    	persistentLocale.set(new Locale("nl"));
-    }
-    
     public void onSuccess()
     {     
         try {

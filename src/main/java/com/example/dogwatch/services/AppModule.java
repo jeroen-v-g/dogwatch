@@ -2,6 +2,7 @@ package com.example.dogwatch.services;
 
 import java.io.IOException;
 
+
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
@@ -107,7 +108,7 @@ public class AppModule
      * service interface and would be "RequestFilter".  Since Tapestry already defines
      * a service named "RequestFilter" we use an explicit service id that we can reference
      * inside the contribution method.
-     */
+    
     public RequestFilter buildTimingFilter(final Logger log)
     {
         return new RequestFilter()
@@ -132,15 +133,15 @@ public class AppModule
                 }
             }
         };
-    }
-
+    } 
+	*/
     /**
      * This is a contribution to the RequestHandler service configuration. This is how we extend
      * Tapestry using the timing filter. A common use for this kind of filter is transaction
      * management or security. The @Local annotation selects the desired service by type, but only
      * from the same module.  Without @Local, there would be an error due to the other service(s)
      * that implement RequestFilter (defined in other modules).
-     */
+    
     @Contribute(RequestHandler.class)
     public void addTimingFilter(OrderedConfiguration<RequestFilter> configuration,
      @Local
@@ -150,9 +151,9 @@ public class AppModule
         // set constraints to precisely control the invocation order of the contributed filter
         // within the pipeline.
 
-        configuration.add("Timing", filter);
+        //configuration.add("Timing", filter);
     }
-    
+    */
     
     
     

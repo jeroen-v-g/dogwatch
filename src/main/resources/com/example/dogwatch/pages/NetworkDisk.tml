@@ -1,11 +1,11 @@
-<html t:type="layout" title="Selecteer directories"
+<html t:type="layout" title="${message:title}"
 	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 
 
 <div class="row">
 	<div class="span12">
-		<p>Selecteer de directory die doorzocht moet worden</p>
+		<p>${message:p1}</p>
 	</div>
 </div>
 
@@ -15,19 +15,19 @@
 			<p>
 				<t:select t:id="shareList" value="selectedShare"
 					model="shareSelectModel" />
-				<t:submit value="Selecteer share" class="btn btn-primary"></t:submit>
+				<t:submit value="${message:select-share}" class="btn btn-primary"></t:submit>
 				<t:eventlink t:event="addShare" class="btn btn-primary btn-large"
-					zone="addShareZone">Voeg Share toe</t:eventlink>
-				<t:submit t:event="removeShare" class="btn btn-primary btn-large" value="Verwijder Share"></t:submit>
+					zone="addShareZone">${message:add-share}</t:eventlink>
+				<t:submit t:event="removeShare" class="btn btn-primary btn-large" value="${message:remove-share}"></t:submit>
 			</p>
-			<p>Geselecteerde share = ${selectedShare}</p>
+			<p>${message:selected-share} = ${selectedShare}</p>
 		</t:form>
 
 		<t:zone t:id="addShareZone" id="addShareZone" />
 
 		<t:zone t:id="selectedPathZone" id="selectedPathZone">
 			<t:if test="selectedShare">
-                        Geselecteerd:<br />
+                        ${message:selected}:<br />
 				<t:loop source="paths" value="pathName">
                         ${pathName}<br />
 				</t:loop>
@@ -55,19 +55,19 @@
 			<t:form t:id="addShareForm">
 				<p />
 				<p>
-					Share Naam (b.v. //host/sharename ) :
+					${message:share-name} :
 					<t:textfield t:id="shareName" validate="required" />
 				</p>
 				<p>
-					Share Gebruikersnaam :
+					${message:share-username} :
 					<t:textfield t:id="shareUsername" validate="required" />
 				</p>
 				<p>
-					Share Wachtwoord :
+					${message:share-password} :
 					<t:passwordfield t:id="sharePassword" validate="required" />
 				</p>
-				<t:submit value="Add" event="confirmShare"></t:submit>
-				<t:submit value="Cancel"></t:submit>
+				<t:submit value="${message:add}" event="confirmShare"></t:submit>
+				<t:submit value="${message:cancel}"></t:submit>
 				<p />
 			</t:form>
 		</t:block>

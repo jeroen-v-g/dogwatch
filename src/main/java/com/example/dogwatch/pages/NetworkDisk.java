@@ -194,6 +194,8 @@ public class NetworkDisk {
 	
 	public List<Path> getSelectedPaths()
 	{
+		if (selectedPathsMap==null)
+			return new ArrayList<>();
 		List<Path> selectedPathsList = new ArrayList<>();
 		for(String key : selectedPathsMap.keySet())
 		{

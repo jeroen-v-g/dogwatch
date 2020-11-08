@@ -1,0 +1,1 @@
+document.getElementById("spacercontainer").style.height = document.getElementById("navbar").offsetHeight+ "px";

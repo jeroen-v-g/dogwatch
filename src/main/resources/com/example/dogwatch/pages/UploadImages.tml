@@ -1,18 +1,18 @@
-<html t:type="layout" title="Upload zoek bestanden"
+<html t:type="layout" title="${message:title}"
 	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_4.xsd"
 	xmlns:p="tapestry:parameter">
 <body>
-	<p>Selecteer zoek afbeeldingen</p>
+	<p>${message:p1}</p>
 	<t:form t:id="uploadForm">
 		<t:errors />
-		<input t:type="upload" class="" t:id="file" t:value="file" validate="required" style="margin-bottom 10px; " />
-		<input type="submit" value="Upload" />
+		<input t:type="upload" t:id="file" t:value="file" validate="required" style="margin-bottom 10px; " />
+		<input type="submit" value="${message:upload}" />
 	</t:form>
-	<p>Zoek afbeeldingen:</p>
+	<p style="margin-bottom: 10px; margin-top: 10px;">${message:search-images} : </p>
 	<t:loop source="searchImages" value="searchImage">
 		<p>
 			<t:actionLink t:id="removeImage" context="searchImage"
-				class="btn btn-primary btn-large">Verwijder afbeelding</t:actionLink>
+				class="btn btn-primary btn-large">${message:remove-image}</t:actionLink>
 			${searchImage}
 		</p>
 	</t:loop>

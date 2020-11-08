@@ -32,12 +32,14 @@ function doAjaxCall(contextPath) {
 		if (this.readyState == 4 && this.status == 200) {
 			var response = JSON.parse(xhttp2.responseText);
 			if (response.isSearching == false && doRefresh == true) {
-				location.reload();
+				location.href=window.location.href;
 			}
 			if (response.isSearching == true) {
 				doRefresh = true;
 				document.getElementById("stopRefreshButton").style["display"] = "";
 				document.getElementById("startRefreshButton").style["display"] = "none";
+				document.getElementById("progressBar").style.width=response.percentageCompleted+"%";
+				document.getElementById("progressBar").innerHTML=response.percentageCompleted+"%";
 			}
 		}
 	};

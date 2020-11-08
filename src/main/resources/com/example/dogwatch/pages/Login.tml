@@ -1,14 +1,14 @@
-<html t:type="layout" title="Aanmelden"
+<html t:type="layout" title="${message:title}"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
 <div class="row">
     <div class="span4 offset3">
         <t:form t:id="loginForm">
-            <h2>Voer gebruikersnaam en wachtwoord in:</h2>
-            <t:textfield t:id="username" class="input-block-level" validate="required" placeholder="Gebruikersnaam"/>
-            <t:passwordfield t:id="password" class="input-block-level" validate="required" placeholder="Wachtwoord"/>
-            <t:submit class="btn btn-large btn-primary" value="Aanmelden"/>
+            <h2>${message:enter-username-password}:</h2>
+            <t:textfield t:id="username" class="input-block-level" validate="required" placeholder="${message:username}"/>
+            <t:passwordfield t:id="password" class="input-block-level" validate="required" placeholder="${message:password}"/>
+            <t:submit class="btn btn-large btn-primary" value="${message:sign-on}"/>
         </t:form>
     </div>
 </div>

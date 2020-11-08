@@ -1,3 +1,21 @@
+#spacercontainer{
+	margin-top:20px;
+	height:56px;
+}
+
+#uploadForm .form-control{
+	height:100%;
+}
+
+button[data-action="dismiss-all"] {
+	display: none;
+}
+
+.form-control{
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
  /* Dropdown Button */
 .dropbtn {
   background-color: #4CAF50;

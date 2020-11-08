@@ -4,6 +4,7 @@ import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.PasswordField;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import com.example.dogwatch.security.AuthenticationException;
@@ -33,24 +34,27 @@ public class ChangePassword {
 
 	@Inject
 	private Authenticator authenticator;
+	
+	@Inject
+	private Messages messages;
 
 	void onSubmitFromPasswordForm() {
 		try {
 			if (!authenticator.verifyPassword(passwordOld)) {
-				alertManager.error("Bestaande wachtwoord klopt niet");
+				alertManager.error(messages.get("incorrect-password"));
 				return;
 			}
 			if (!passwordNew.contentEquals(passwordNew1)) {
-				alertManager.error("Nieuwe wachtwoorden zijn ongelijk");
+				alertManager.error(messages.get("passwords-dont-match"));
 				return;
 			}
 			if (authenticator.storeNewPassword(passwordOld, passwordNew))
-				alertManager.success("Wachtwoord is aangepast");
+				alertManager.success(messages.get("change-succesfull"));
 			else
-				alertManager.error("Wachtwoord kon niet worden aangepast");
+				alertManager.error(messages.get("error"));
 
 		} catch (AuthenticationException e) {
-			alertManager.error("Wachtwoord kon niet worden aangepast");
+			alertManager.error(messages.get("error"));
 			return;
 		}
 
