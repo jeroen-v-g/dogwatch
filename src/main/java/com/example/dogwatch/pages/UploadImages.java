@@ -3,7 +3,6 @@ package com.example.dogwatch.pages;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.tapestry5.alerts.AlertManager;
 import org.apache.tapestry5.alerts.Duration;
@@ -11,6 +10,7 @@ import org.apache.tapestry5.alerts.Severity;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.PersistentLocale;
 import org.apache.tapestry5.upload.services.UploadedFile;
@@ -32,6 +32,8 @@ public class UploadImages
     @Property
     private UploadedFile file;
 
+    @Inject
+    private Messages messages;
     
     @Inject 
     private PersistentLocale persistentLocale;
@@ -41,7 +43,7 @@ public class UploadImages
         try {
 			ImageTransfer.writeFile(file.getStream(), file.getFileName());
 		} catch (IOException e) {
-			alertManager.alert(Duration.SINGLE, Severity.ERROR, "Uploaden van afbeelding mislukt: "+e);
+			alertManager.alert(Duration.SINGLE, Severity.ERROR, messages.get("error-uploading")+ ": "+e);
 		}
     }
     
@@ -53,7 +55,7 @@ public class UploadImages
 				uploadForm.recordError("File already uploaded");
 			}
 		} catch (IOException e) {
-			alertManager.alert(Duration.SINGLE, Severity.ERROR, "Uploaden van afbeelding mislukt: "+e);
+			alertManager.alert(Duration.SINGLE, Severity.ERROR, messages.get("error-uploading")+ ": "+e);
 		}
     }
 	
@@ -62,7 +64,7 @@ public class UploadImages
 		try {
 			return ImageTransfer.getSearchImages();
 		} catch (IOException e) {
-			alertManager.alert(Duration.SINGLE, Severity.ERROR, "Ophalen van afbeeldingen mislukt: "+e);
+			alertManager.alert(Duration.SINGLE, Severity.ERROR, messages.get("error-retrieving")+ ": "+e);
 		}
 		return new ArrayList<String>();
 	}
@@ -72,7 +74,7 @@ public class UploadImages
 		try {
 			ImageTransfer.removeImage(imageName);
 		} catch (IOException e) {
-			alertManager.alert(Duration.SINGLE, Severity.ERROR, "Verwijderen van afbeelding mislukt: "+e);
+			alertManager.alert(Duration.SINGLE, Severity.ERROR, messages.get("error-deleting")+ ": "+e);
 		}
 
 	}
