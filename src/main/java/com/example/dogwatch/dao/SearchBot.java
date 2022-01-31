@@ -64,7 +64,7 @@ public class SearchBot implements Runnable {
 				List<Path> pathList = traversal.filter(path -> Files.isDirectory(path)).collect(Collectors.toList());
 				traversal.close();
 				for (Path path : pathList) {
-					String[] arguments = { "/usr/local/bin/face_recognition", "--cpus", "1",
+					String[] arguments = { "/usr/local/bin/face_recognition", "--cpus", "-1",
 							ImageTransfer.getSearchImagePath(), path.toString() };
 					ProcessBuilder processBuilder = new ProcessBuilder(arguments);
 					processBuilder.redirectErrorStream(true);
